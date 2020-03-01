@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div  id="area" class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="plusBtnAmount" type="text" class="form-control text-center" value="1">
+                           <button id="plusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="mobilePrice">1219 </span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="coverMinusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="coverBtnAmount" type="text" class="form-control text-center" value="1">
+                           <button id="coverBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="coverPrice"> 59 </span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotalPrice">1278</span> </h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="totalPrice"> 1278</span> </h5>
+                     </div>
+                  </div>
+               </div>
+               <div  class="col-md-12 pt-4 pb-4">
+                  <button id="CheckOut" type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   
+   <div id="newPage" class="page">
+      <h1>Thank you </h1>
+      <h2> Stay with us</h2>
+      <h3>Ektu pera kahilam </h3>
+   </div>
+
+
+
+
+
+
+
+
+
+
+   <script>
+
+
+      
+      //for mobile add amount 
+
+   const plusBtn = document.getElementById("plusBtn")
+   plusBtn.addEventListener("click", function (){
+   const plusBtnAmount = document.getElementById("plusBtnAmount").value;
+   const plusBtnNumber = parseFloat(plusBtnAmount);
+   const  getPlus = "1";
+   const getPlusAmount = parseFloat(getPlus);
+   const totalPlus =  getPlusAmount + plusBtnNumber;  
+   document.getElementById("plusBtnAmount").value = totalPlus;
+
+   const mobilePrice = document.getElementById("mobilePrice").innerText;
+   const mobilePriceNumber = parseFloat(mobilePrice);
+   const mainPrice = "1219"
+   const mainPriceAmount= parseFloat(mainPrice);
+   const totalPriceMobile = totalPlus * mainPriceAmount ;
+   document.getElementById("mobilePrice").innerText = totalPriceMobile ;
+   const coverPrice = document.getElementById("coverPrice").innerText;
+      const coverPriceNumber = parseFloat(coverPrice);
+
+
+   const subTotalPrice =document.getElementById("subTotalPrice").innerText;
+   const subTotal = parseFloat(subTotalPrice);
+
+   document.getElementById("subTotalPrice").innerText= priceUpdate(totalPriceMobile, coverPriceNumber);
+   totalAmount("totalPrice", "subTotalPrice");
+
+
+
+
+ })
+      //for mobile minus amount
+
+      const minusBtn = document.getElementById("minusBtn");
+      minusBtn.addEventListener("click",function(){
+         
+      const plusBtnAmount = document.getElementById("plusBtnAmount").value;
+      const plusBtnNumber = parseFloat(plusBtnAmount);
+
+      const  getMinus = "1";
+      const getMinusAmount = parseFloat(getMinus);
+      const totalMinus =   plusBtnNumber - getMinusAmount;  
+      
+      if( totalMinus >-1){
+         document.getElementById("plusBtnAmount").value = totalMinus;
+
+      }
+      else {
+         minusMobilePrice ="0";
+         document.getElementById("mobilePrice").innerText = minusMobilePrice ;
+
+
+      }
+      
+
+
+      
+      const mobilePrice = document.getElementById("mobilePrice").innerText;
+      const mobilePriceNumber = parseFloat(mobilePrice);
+      const mainPrice = "1219"
+      const mainPriceAmount= parseFloat(mainPrice);
+      const minusMobilePrice = mobilePriceNumber - mainPriceAmount
+      document.getElementById("mobilePrice").innerText = minusMobilePrice ;
+
+               const coverPrice = document.getElementById("coverPrice").innerText;
+               const coverPriceNumber = parseFloat(coverPrice);
+               const subTotalPrice =document.getElementById("subTotalPrice").innerText;
+               const subTotal = parseFloat(subTotalPrice);
+               document.getElementById("subTotalPrice").innerText= priceUpdate(minusMobilePrice, coverPriceNumber);
+               totalAmount("totalPrice", "subTotalPrice");
+                  
+
+
+
+  })
+
+
+
+      //for add cover price
+        
+      const  coverBtn = document.getElementById("coverBtn") ;
+      coverBtn.addEventListener("click",function(){
+      const coverBtnAmount = document.getElementById("coverBtnAmount").value;
+      const coverBtnNumber = parseFloat(coverBtnAmount);
+      const  getCover = "1";
+      const coverPlusAmount = parseFloat(getCover);
+      const totalCover =  coverPlusAmount + coverBtnNumber;  
+      document.getElementById("coverBtnAmount").value = totalCover;
+
+         
+      const coverPrice = document.getElementById("coverPrice").innerText;
+      const coverPriceNumber = parseFloat(coverPrice);
+      const coverMainPrice = "59"
+      const mainPriceAmount= parseFloat(coverMainPrice);
+      const totalPriceCover = totalCover * mainPriceAmount ;
+      document.getElementById("coverPrice").innerText = totalPriceCover ;
+      const mobilePrice = document.getElementById("mobilePrice").innerText;
+      const mobilePriceNumber = parseFloat(mobilePrice);
+      
+
+
+
+   const subTotalPrice =document.getElementById("subTotalPrice").innerText;
+   const subTotal = parseFloat(subTotalPrice);
+   document.getElementById("subTotalPrice").innerText= priceUpdate(totalPriceCover, mobilePriceNumber);
+   totalAmount("totalPrice", "subTotalPrice");
+
+
+   })
+
+
+   const coverMinus = document.getElementById("coverMinusBtn");
+   coverMinus.addEventListener("click",function(){     
+   const coverBtnAmount = document.getElementById("coverBtnAmount").value;
+   const coverBtnNumber = parseFloat(coverBtnAmount);
+
+      const  getCoverCount = "1";
+      const coverMinusAmount = parseFloat(getCoverCount);
+      const totalCoverMinus =   coverBtnNumber - coverMinusAmount ;  
+      
+      if(totalCoverMinus>-1){
+         document.getElementById("coverBtnAmount").value = totalCoverMinus;
+      }
+      else {
+         minusCoverPrice= "0";
+         
+         document.getElementById("coverPrice").innerText = minusCoverPrice ;
+
+
+      }
+
+      //cover price minus
+       
+            const coverPrice = document.getElementById("coverPrice").innerText;
+            const coverPriceNumber = parseFloat(coverPrice);
+            const mainPrice = "59"
+            const mainPriceAmount= parseFloat(mainPrice);
+            const minusCoverPrice = coverPriceNumber - mainPriceAmount
+            document.getElementById("coverPrice").innerText = minusCoverPrice ;
+
+            
+   const mobilePrice = document.getElementById("mobilePrice").innerText;
+   const mobilePriceNumber = parseFloat(mobilePrice);
+   const subTotalPrice =document.getElementById("subTotalPrice").innerText;
+   const subTotal = parseFloat(subTotalPrice);
+   document.getElementById("subTotalPrice").innerText= priceUpdate(minusCoverPrice, mobilePriceNumber);
+   totalAmount("totalPrice", "subTotalPrice");
+ 
+   })
+
+   //function
+
+    
+      function totalAmount(totalPrice, subTotalPrice){
+      document.getElementById(totalPrice).innerText = document.getElementById(subTotalPrice).innerText;
+       }
+
+   
+      function priceUpdate(CoverPrice, mobilePrice){
+      const totalPriceAmount = CoverPrice + mobilePrice;
+      return totalPriceAmount;
+       }
+
+       const loginbtn = document.getElementById("CheckOut")
+        loginbtn.addEventListener("click",function(){
+          const loginarea =document.getElementById("area")
+          loginarea.style.display="none"
+         const welcomePage = document.getElementById("newPage")
+         welcomePage.style.display="block"
+          
+       })
+
+       
+      
+   
+
+   </script>
+</body>
+
+</html>
